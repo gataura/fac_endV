@@ -41,7 +41,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 @Suppress("DEPRECATION")
-class SensorsFragment : Fragment(), SensorListener {
+class SensorsFragment : Fragment(), SensorListener, View.OnClickListener {
 
     lateinit var xViewA: TextView
     lateinit var yViewA: TextView
@@ -63,7 +63,8 @@ class SensorsFragment : Fragment(), SensorListener {
         saveButton = view.findViewById(R.id.detect_button)
         saveButton.isEnabled = false
 
-        askPerm()
+        saveButton.setOnClickListener(this)
+
 
         xViewA = view.findViewById(R.id.xViewA)
         yViewA = view.findViewById(R.id.yViewA)
@@ -71,6 +72,8 @@ class SensorsFragment : Fragment(), SensorListener {
         xViewO = view.findViewById(R.id.xViewO)
         yViewO = view.findViewById(R.id.yViewO)
         zViewO = view.findViewById(R.id.zViewO)
+
+        askPerm()
 
         sm = this.requireActivity().getSystemService(SENSOR_SERVICE) as SensorManager
 
@@ -130,7 +133,7 @@ class SensorsFragment : Fragment(), SensorListener {
         Log.d(tag, "onAccuracyChanged: $sensor, accuracy: $accuracy")
     }
 
-    fun onSaveButtonClick(v: View) {
+    override fun onClick(v: View) {
         var now = Date()
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
 

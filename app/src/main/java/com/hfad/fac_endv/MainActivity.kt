@@ -14,6 +14,7 @@ import android.view.MenuItem
 import com.hfad.fac_endv.Fragments.ContactsFragment
 import com.hfad.fac_endv.Fragments.InfoFragment
 import com.hfad.fac_endv.Fragments.MapFragment
+import com.hfad.fac_endv.Fragments.SensorsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
@@ -71,17 +72,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragment = Fragment()
 
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_contacts -> {
                 fragment =  ContactsFragment()
             }
-            R.id.nav_gallery -> {
+            R.id.nav_map -> {
                 fragment = MapFragment()
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_info -> {
                 fragment = InfoFragment()
             }
-            R.id.nav_manage -> {
-
+            R.id.nav_sensors -> {
+                fragment = SensorsFragment()
             }
             R.id.nav_share -> {
 
