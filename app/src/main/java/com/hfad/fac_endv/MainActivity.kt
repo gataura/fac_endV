@@ -1,5 +1,7 @@
 package com.hfad.fac_endv
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -11,10 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.hfad.fac_endv.Fragments.ContactsFragment
-import com.hfad.fac_endv.Fragments.InfoFragment
-import com.hfad.fac_endv.Fragments.MapFragment
-import com.hfad.fac_endv.Fragments.SensorsFragment
+import com.hfad.fac_endv.Fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
@@ -22,6 +21,7 @@ import java.lang.Exception
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        var tx: FragmentTransaction =  supportFragmentManager.beginTransaction()
+        tx.replace(R.id.container, ReposFragment())
+        tx.commit()
+
 
     }
 
@@ -69,9 +74,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+
         var fragment = Fragment()
 
+
         when (item.itemId) {
+            R.id.nav_repos -> {
+                fragment = ReposFragment()
+            }
+
             R.id.nav_contacts -> {
                 fragment =  ContactsFragment()
             }
@@ -94,10 +105,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         var fm:FragmentManager = supportFragmentManager
         var ft: FragmentTransaction = fm.beginTransaction()
+
         ft.replace(R.id.container, fragment)
         ft.commit()
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }
